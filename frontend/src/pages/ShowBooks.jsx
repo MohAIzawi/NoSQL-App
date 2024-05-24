@@ -3,6 +3,8 @@ import Axios from 'axios'
 import { useParams } from 'react-router-dom'
 import Spinner from './Spinner'
 import BackButton from './BackButton'
+import { useNavigate } from 'react-router-dom';
+
 
 
 
@@ -10,6 +12,9 @@ const ShowBooks = () => {
   const [book, setBook] = useState({});
   const [loading, setLoading] = useState(false);
   const { id } = useParams();
+  const navigate = useNavigate();
+
+  console.log('Book ID:', id);
 
   useEffect(() => {
     setLoading(true);
@@ -43,12 +48,12 @@ const ShowBooks = () => {
             <span className='text-xl'>{book.title}</span>
           </div>
           <div className='my-4'>
-            <span className='text-xl mr-4 text-gray-500'>Author</span>
-            <span className='text-xl'>{book.author}</span>
+            <span className='text-xl mr-4 text-gray-500'>Authors</span>
+            <span className='text-xl'>{book.authors}</span>
           </div>
           <div className='my-4'>
             <span className='text-xl mr-4 text-gray-500'>Published Year</span>
-            <span className='text-xl'>{book.publishYear}</span>
+            <span className='text-xl'>{book.publishedDate}</span>
           </div>
           <div className='my-4'>
             <span className='text-xl mr-4 text-gray-500'>Create Time</span>

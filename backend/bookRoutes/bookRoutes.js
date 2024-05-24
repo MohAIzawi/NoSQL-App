@@ -10,15 +10,15 @@ router.post('/', async (request, response) => {
     try {
         if (
             !request.body.title ||
-            !request.body.author ||
-            !request.body.publishYear
+            !request.body.authors ||
+            !request.body.publishedDate
         ) {
             return response.status(400).send({ message: 'All 3 fields of data are required' });
         }
         const newBook = {
             title: request.body.title,
-            author: request.body.author,
-            publishYear: request.body.publishYear,
+            author: request.body.authors,
+            publishYear: request.body.publishedDate,
         };
 
         const book = await Book.create(newBook)

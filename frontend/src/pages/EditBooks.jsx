@@ -6,8 +6,8 @@ import { useNavigate, useParams } from 'react-router-dom'
 
 const EditBooks = () => {
   const [title, setTitle] = useState('')
-  const [author, setAuthor] = useState('')
-  const [publishYear, setPublishYear] = useState('')
+  const [authors, setAuthors] = useState('')
+  const [publishedDate, setPublishedDate] = useState('')
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
   const { id } = useParams()
@@ -16,8 +16,8 @@ const EditBooks = () => {
     axios.get(`http://localhost:5555/books/${id}`)
       .then(response => {
         setTitle(response.data.title)
-        setAuthor(response.data.author)
-        setPublishYear(response.data.publishYear)
+        setAuthors(response.data.authors)
+        setPublishedDate(response.data.publishedDate)
       })
       .catch(error => console.error('Error fetching book:', error))
   }, [id])
@@ -25,8 +25,8 @@ const EditBooks = () => {
   const handleUpdateBook = () => {
     const updatedBook = {
       title,
-      author,
-      publishYear,
+      authors,
+      publishedDate,
     }
   
     setLoading(true)
@@ -65,26 +65,26 @@ const EditBooks = () => {
             />
           </div>
           <div className='flex flex-col gap-y-2'>
-            <label htmlFor='author' className='text-xl'>
-              Author
+            <label htmlFor='authors' className='text-xl'>
+              Authors
             </label>
             <input
               type='text'
-              id='author'
-              value={author}
-              onChange={(e) => setAuthor(e.target.value)}
+              id='authors'
+              value={authors}
+              onChange={(e) => setAuthors(e.target.value)}
               className='border-2 border-blue-400 rounded-md p-2'
             />
           </div>
           <div className='flex flex-col gap-y-2'>
-            <label htmlFor='publishYear' className='text-xl'>
-              Publish Year
+            <label htmlFor='publishedDate' className='text-xl'>
+              Published Date
             </label>
             <input
-              type='text'
-              id='publishYear'
-              value={publishYear}
-              onChange={(e) => setPublishYear(e.target.value)}
+              type='date'
+              id='publishedDate'
+              value={publishedDate}
+              onChange={(e) => setPublishedDate(e.target.value)}
               className='border-2 border-blue-400 rounded-md p-2'
             />
           </div>
