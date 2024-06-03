@@ -34,6 +34,9 @@ const Home = () => {
           <MdOutlineAddBox className='inline-block' />
         </Link>
       </div>
+      <Link to='/random-book' className='inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>
+        Show Random Book
+      </Link>
       {loading ? (
         <Spinner />
       ) : (
@@ -42,8 +45,8 @@ const Home = () => {
             <tr>
               <th className='border border-gray-600 rounded-md'>No</th>
               <th className='border border-gray-600 rounded-md'>Title</th>
-              <th className='border border-gray-600 rounded-md md:hidden'>Author</th>
-              <th className='border border-gray-600 rounded-md md:hidden'>Published Year</th>
+              <th className='border border-gray-600 rounded-md '>Authors</th>
+              <th className='border border-gray-600 rounded-md'>Published Year</th>
               <th className='border border-gray-600 rounded-md'>Actions</th>
             </tr>
           </thead>
@@ -52,8 +55,8 @@ const Home = () => {
               <tr key={book._id} className='h-8'>
                 <td className='border border-gray-700 rounded-md'>{index + 1}</td>
                 <td className='border border-gray-700 rounded-md'>{book.title}</td>
-                <td className='border border-gray-700 rounded-md md:hidden'>{book.authors}</td>
-                <td className='border border-gray-700 rounded-md md:hidden'>{book.publishYear}</td>
+                <td className='border border-gray-700 rounded-md'>{book.authors}</td>
+                <td className='border border-gray-700 rounded-md'>{book.publishedDate}</td>
                 <td className='border border-gray-700 rounded-md'>
                   <div className='flex justify-center gap-x-4'>
                     <Link to={`/books/details/${book._id}`}>

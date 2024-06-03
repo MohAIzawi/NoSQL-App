@@ -2,25 +2,21 @@ import React, { useEffect, useState } from 'react'
 import Axios from 'axios'
 import Spinner from './Spinner'
 import BackButton from './BackButton'
-import { useParams } from 'react-router-dom'
 
-const ShowBooks = () => {
+const RandomBook = () => {
   const [book, setBook] = useState(null);
   const [loading, setLoading] = useState(false);
-  const { id } = useParams();
-
-  console.log('id:', id);
 
   useEffect(() => {
     setLoading(true);
     Axios
-    .get(`http://localhost:5555/books/${id}`)
+    .get('http://localhost:5555/books')
     .then((response) => {
-      console.log('response:', response.data);
-      if (response.data) {
-        setBook(response.data);
+      if (Array.isArray(response.data.data)) {
+        const randomIndex = Math.floor(Math.random() * response.data.data.length);
+        setBook(response.data.data[randomIndex]);
       } else {
-        console.error('Error: No data found');
+        console.error('Error: response.data.data is not an array:', response.data.data);
       }
       setLoading(false);
     })
@@ -28,15 +24,14 @@ const ShowBooks = () => {
       console.error('Error fetching data:', error);
       setLoading(false);
     });
-  }, [id]);
+  }, []);
 
   return (
     <div className='p-4'>
-      <BackButton />
-      <h1 className='text-3xl my-4'>Book Details</h1>
+        <BackButton /><br />
       {loading ? (
         <Spinner />
-      ) : (
+    ) : (
         book && <div className='flex flex-col border-2 border-blue-400 rounded-xl w-fit p-4'>
           <div className='my-4'>
             <span className='text-xl mr-4 text-gray-500'>id</span>
@@ -68,4 +63,4 @@ const ShowBooks = () => {
   )
 }
 
-export default ShowBooks
+export default RandomBook
